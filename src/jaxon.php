@@ -39,29 +39,35 @@ if (isset($_POST['link']) && isset($_POST['config'])) {
         $html = '';
 
         foreach ($config as $tag => $attributes) {
-            if (!in_array($tag, $approvedTags)) {
-                continue;
-            }
+            if (is_string($attributes) && $tag === 'text') {
+                // Direct text handling
+                $parsedValue = parseValue($attributes, $data);
+                $html .= htmlspecialchars($parsedValue);
+            } elseif (in_array($tag, $approvedTags)) {
+                // Tag handling
+                $html .= "<$tag";
 
-            if (is_array($attributes) && isset($attributes['text'])) {
-                // Single element
-                $parsedValue = parseValue($attributes['text'], $data);
-                $html .= "<$tag>" . htmlspecialchars($parsedValue) . "</$tag>";
-            } elseif (is_array($attributes)) {
-                // Nested elements
-                $html .= "<$tag>";
-                foreach ($attributes as $element) {
-                    foreach ($element as $nestedTag => $nestedAttributes) {
-                        $html .= generateHtml($data, array($nestedTag => $nestedAttributes), $approvedTags);
+                if (is_array($attributes) && isset($attributes['text'])) {
+                    // Single element with text
+                    $parsedValue = parseValue($attributes['text'], $data);
+                    $html .= ">" . htmlspecialchars($parsedValue) . "</$tag>";
+                } elseif (is_array($attributes)) {
+                    // Nested elements
+                    $html .= ">";
+                    foreach ($attributes as $element) {
+                        foreach ($element as $nestedTag => $nestedAttributes) {
+                            $html .= generateHtml($data, array($nestedTag => $nestedAttributes), $approvedTags);
+                        }
                     }
+                    $html .= "</$tag>";
+                } else {
+                    $html .= ">";
                 }
-                $html .= "</$tag>";
             }
         }
 
         return $html;
     }
-
 
     // Parse nested value
     function parseValue($value, $data) {
