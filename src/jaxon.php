@@ -8,6 +8,12 @@ if (isset($_POST['link']) && isset($_POST['config'])) {
     $link = $_POST['link'];
     $config = json_decode($_POST['config'], true);
 
+    // Check for JSON parsing error
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo "Error: Invalid JSON format in config.";
+        exit;
+    }
+
     // Fetch data from the URL
     $jsonData = file_get_contents($link);
     if ($jsonData === false) {
@@ -22,6 +28,11 @@ if (isset($_POST['link']) && isset($_POST['config'])) {
         exit;
     }
 
+    // is undefined array key 0 in data?
+    if (!isset($data[0])) {
+        $data = [$data];
+    }
+
     // Function to generate HTML elements according to config
     function generateHtml($data, $config, $approvedTags) {
         global $approvedTags;
@@ -32,33 +43,25 @@ if (isset($_POST['link']) && isset($_POST['config'])) {
                 continue;
             }
 
-            $html .= "<$tag";
-
-            foreach ($attributes as $attr => $value) {
-                if (is_array($value)) {
-                    // Nested tag handling
-                    $html .= ">" . generateHtml($data, array($attr => $value), $approvedTags);
-                } else {
-                    // Parse value (supports nested values)
-                    $parsedValue = parseValue($value, $data);
-
-                    if ($attr == 'text') {
-                        $html .= ">" . htmlspecialchars($parsedValue);
-                    } else {
-                        $html .= " $attr=\"" . htmlspecialchars($parsedValue) . "\"";
+            if (is_array($attributes) && isset($attributes['text'])) {
+                // Single element
+                $parsedValue = parseValue($attributes['text'], $data);
+                $html .= "<$tag>" . htmlspecialchars($parsedValue) . "</$tag>";
+            } elseif (is_array($attributes)) {
+                // Nested elements
+                $html .= "<$tag>";
+                foreach ($attributes as $element) {
+                    foreach ($element as $nestedTag => $nestedAttributes) {
+                        $html .= generateHtml($data, array($nestedTag => $nestedAttributes), $approvedTags);
                     }
                 }
+                $html .= "</$tag>";
             }
-
-            if (!array_key_exists('text', $attributes) && !is_array($value)) {
-                $html .= ">";
-            }
-
-            $html .= "</$tag>";
         }
 
         return $html;
     }
+
 
     // Parse nested value
     function parseValue($value, $data) {
@@ -84,15 +87,15 @@ if (isset($_POST['link']) && isset($_POST['config'])) {
         return $dataValue;
     }
 
-
-
     // Apply HTML generation
     $result = [];
     if (is_array($data)) {
         foreach ($data as $item) {
-            $result[] = generateHtml($item, $config, $approvedTags);
+            if (is_array($config)) { // Ensure $config is an array
+                $result[] = generateHtml($item, $config, $approvedTags);
+            }
         }
-    } else {
+    } elseif (is_array($config)) { // Ensure $config is an array
         $result = generateHtml($data, $config, $approvedTags);
     }
 
