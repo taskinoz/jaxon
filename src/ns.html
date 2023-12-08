@@ -7,10 +7,47 @@
     <script src="https://unpkg.com/htmx.org@1.9.9"
         integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX"
         crossorigin="anonymous"></script>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .container {
+                height: 100vh;
+            }
+
+            button {
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: none;
+                background-color: #000;
+                color: #fff;
+                cursor: pointer;
+                margin: 20px 0;
+            }
+
+            #res {
+                margin-top: 20px;
+                border: 1px solid #000;
+                padding: 20px;
+                border-radius: 5px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-gap: 10px;
+
+            }
+
+            #res div {
+                padding: 10px;
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 5px;
+            }
+        </style>
 </head>
 <body>
     <div class="container">
-        <button hx-post="/jaxon.php" hx-include="#data, #link" hx-target="#res">post</button>
+        <div id="res"></div>
+        <button hx-post="/jaxon.php" hx-include="#data, #link" hx-target="#res">Refresh</button>
         <input type="hidden" name="link" id="link" value="https://northstar.tf/client/servers">
         <textarea hidden name="config" id="data" cols="30" rows="10">
             {
@@ -46,7 +83,6 @@
                 ]
             }
         </textarea>
-        <div id="res"></div>
     </div>
 </body>
 </html>
