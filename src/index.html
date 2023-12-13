@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAXON | Server tools for HTMX</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .yellow {
+            color: #f1c40f;
+        }
+        .logo {
+            font-size: 100px;
+            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+                "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+        }
+        .dark {
+            color: #fff;
+        }
+        .dark-hero {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+        }
+
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+
+        }
+        hr {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dark-hero full-width appear" classes="add appear">
+            <span class="logo dark">
+                <span class="yellow">{</span>ja<span class="yellow">x</span>on<span class="yellow">}</span>
+            </span>
+            <sub class="no-mobile"><i>server tools for HTMX</i></sub>
+        </div>
+        <div class="about-section section">
+            <h2>About</h2>
+            <p>Jaxon is a server-side rendering tool for HTMX. It allows you to create dynamic HTML pages using JSON API's with HTMX.</p>
+
+            <h2>How it works</h2>
+            <p>Jaxon is a backend parser for JSON API's that allows you to create dynamic HTML pages for use with HTMX.
+                It works by parsing JSON data into HTML elements and then returning the reuslt as raw HTML.
+                It's a simple tool that allows you to create dynamic HTMX pages without the limitation of HTML rendered API's.</p>
+            </p>
+        </div>
+        <hr>
+        <div class="usage-section section">
+            <h2>Usage</h2>
+            <p>To format a JSON API you need to create a config for Jaxon as well as a URL for the target</p>
+            <p>Here's an example of a config for a JSON API:</p>
+            <!-- HTML generated using hilite.me -->
+            <div style="background-color: #1f2329; color: #abb2bf; overflow:auto;width:auto;border-radius:5px;padding:.2em .6em;">
+                <pre style="margin: 0; line-height: 125%"><span style="color: #e06c75">&lt;button</span> <span style="color: #d19a66">hx-post=</span><span style="color: #98c379">&quot;/jaxon.php&quot;</span> <span style="color: #d19a66">hx-include=</span><span style="color: #98c379">&quot;#data, #link&quot;</span> <span style="color: #d19a66">hx-target=</span><span style="color: #98c379">&quot;#res&quot;</span><span style="color: #e06c75">&gt;</span>post<span style="color: #e06c75">&lt;/button&gt;</span>
+<span style="color: #e06c75">&lt;input</span> <span style="color: #d19a66">type=</span><span style="color: #98c379">&quot;hidden&quot;</span> <span style="color: #d19a66">name=</span><span style="color: #98c379">&quot;link&quot;</span> <span style="color: #d19a66">id=</span><span style="color: #98c379">&quot;link&quot;</span> <span style="color: #d19a66">value=</span><span style="color: #98c379">&quot;https://swapi.dev/api/people/1/?format=json&quot;</span><span style="color: #e06c75">&gt;</span>
+<span style="color: #e06c75">&lt;textarea</span> <span style="color: #d19a66">hidden</span> <span style="color: #d19a66">name=</span><span style="color: #98c379">&quot;config&quot;</span> <span style="color: #d19a66">id=</span><span style="color: #98c379">&quot;data&quot;</span> <span style="color: #d19a66">cols=</span><span style="color: #98c379">&quot;30&quot;</span> <span style="color: #d19a66">rows=</span><span style="color: #98c379">&quot;10&quot;</span><span style="color: #e06c75">&gt;</span>
+    {
+        &quot;div&quot;: [
+            {
+                &quot;h1&quot;: {
+                    &quot;text&quot;: &quot;name&quot;
+                }
+            },
+            {
+                &quot;p&quot;: {
+                    &quot;text&quot;: &quot;height&quot;
+                }
+            },
+            {
+                &quot;p&quot;: {
+                    &quot;text&quot;: &quot;birth_year&quot;
+                }
+            }
+        ]
+    }
+
+<span style="color: #e06c75">&lt;/textarea&gt;</span>
+<span style="color: #e06c75">&lt;div</span> <span style="color: #d19a66">id=</span><span style="color: #98c379">&quot;res&quot;</span><span style="color: #e06c75">&gt;&lt;/div&gt;</span></pre>
+        </div>
+    </div>
+</body>
+</html>
