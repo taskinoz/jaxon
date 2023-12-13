@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAXON | Server tools for HTMX</title>
+    <script src="https://unpkg.com/htmx.org@1.9.9"
+        integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX"
+        crossorigin="anonymous"></script>
     <style>
         html, body {
             margin: 0;
@@ -49,6 +52,40 @@
             max-width: 1000px;
             margin: 0 auto;
         }
+        .usage-section {
+            background-color: #f1f1f1;
+        }
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .inputs label {
+            margin-bottom: 5px;
+        }
+        .inputs input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .inputs button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .inputs textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .footer-section {
+            text-align: center;
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
@@ -69,7 +106,6 @@
                 It's a simple tool that allows you to create dynamic HTMX pages without the limitation of HTML rendered API's.</p>
             </p>
         </div>
-        <hr>
         <div class="usage-section section">
             <h2>Usage</h2>
             <p>To format a JSON API you need to create a config for Jaxon as well as a URL for the target</p>
@@ -102,6 +138,48 @@
 <span style="color: #e06c75">&lt;/textarea&gt;</span>
 <span style="color: #e06c75">&lt;div</span> <span style="color: #d19a66">id=</span><span style="color: #98c379">&quot;res&quot;</span><span style="color: #e06c75">&gt;&lt;/div&gt;</span></pre>
             </div>
+        </div>
+        <div class="example-section section">
+            <h2>Example</h2>
+            <p>Here's an example of a JSON API being parsed using Jaxon:</p>
+            <div class="example">
+                <div class="inputs">
+                    <label for="link">URL (which is usually hidden)</label>
+                    <input type="text" name="link" id="link" value="https://swapi.dev/api/people/1/?format=json">
+                    <button hx-post="/jaxon.php" hx-include="#data, #link" hx-target="#res">Test</button>
+                </div>
+                <p>Here's the config for the example (which is usually hidden):</p>
+                <div class="inputs">
+                    <textarea name="config" id="data" cols="30" rows="10">
+                        {
+                            "div": [
+                                {
+                                    "h1": {
+                                        "text": "name"
+                                    }
+                                },
+                                {
+                                    "p": {
+                                        "text": "height"
+                                    }
+                                },
+                                {
+                                    "p": {
+                                        "text": "birth_year"
+                                    }
+                                }
+                            ]
+                        }
+                    </textarea>
+                </div>
+                <div class="response">
+                    <p>This is the response HTML</p>
+                    <div id="res"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-section section">
+            <p>Star Jaxon on <a href="https://github.com/taskinoz/jaxon">GitHub</a></p>
         </div>
     </div>
 </body>
