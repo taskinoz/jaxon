@@ -47,7 +47,7 @@
 <body>
     <div class="container">
         <div id="res"></div>
-        <button hx-post="/jaxon.php" hx-include="#data, #link" hx-target="#res">Refresh</button>
+        <button hx-post="./jaxon.php" hx-include="#data, #link" hx-target="#res">Refresh</button>
         <input type="hidden" name="link" id="link" value="https://northstar.tf/client/servers">
         <textarea hidden name="config" id="data" cols="30" rows="10">
             {

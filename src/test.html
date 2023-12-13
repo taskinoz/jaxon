@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <button hx-post="/jaxon.php" hx-include="#data, #link" hx-target="#res">post</button>
+        <button hx-post="./jaxon.php" hx-include="#data, #link" hx-target="#res">post</button>
         <input type="hidden" name="link" id="link" value="https://swapi.dev/api/people/1/?format=json">
         <textarea hidden name="config" id="data" cols="30" rows="10">
             {
