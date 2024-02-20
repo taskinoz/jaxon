@@ -6,6 +6,9 @@ Supercharge your JSON API's with JAXON (**J**SON **A**PI HTM**X** **O**bject **N
 
 JAXON is a middleman between you JSON API and your frontend application. It allows you to define what you want the HTML data to return as with data from your API.
 
+## Docs
+You can find the docs and a demo at [JAXON](https://taskinoz.com/jaxon/)
+
 ## Usage
 
 To use **JAXON** with HTMX all you need to do is define the HTML structure in a `textarea` and the URL in an `input`.
